@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EscapeAI — AI Lab Escape Room</title>
+    <meta name="description"
+        content="Point-and-click escape room game set in an AI tech lab. Solve puzzles to fix a robot and escape!">
+    <link rel="stylesheet" href="style.css?v=5">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- ===== INTRO / TITLE SCREEN ===== -->
+    <div id="intro-screen" class="screen active">
+        <div class="intro-content">
+            <h1 class="glitch" data-text="ESCAPE AI">ESCAPE AI</h1>
+            <p class="intro-subtitle">You wake up locked inside an AI research lab.<br>Fix the broken robot to unlock
+                the door and escape.</p>
+            <button id="btn-start" class="btn-neon">BEGIN ESCAPE</button>
+        </div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- ===== MAIN ROOM SCENE ===== -->
+    <div id="room-screen" class="screen">
+        <div id="room-container">
+            <img src="escapeAIbackground.png" alt="AI Lab Room" id="room-bg">
+
+            <!-- Clickable hotspots -->
+            <div id="hotspot-robot" class="hotspot" data-tooltip="Broken Robot">
+                <img src="escapeAIrobotBroken-removebg-preview.png" alt="Broken Robot" id="robot-img"
+                    class="room-object">
+            </div>
+
+            <div id="hotspot-desk" class="hotspot" data-tooltip="Desk">
+                <img src="escapeAIdeskPC.png" alt="Desk with 3D Printer and PC" id="desk-img" class="room-object">
+                <!-- Hotspot for 3D printer specifically (subset of desk) -->
+                <div id="hotspot-printer" class="hotspot sub-hotspot" data-tooltip="3D Printer"></div>
+                <!-- Hotspot for PC specifically -->
+                <div id="hotspot-pc" class="hotspot sub-hotspot" data-tooltip="Desktop PC"></div>
+            </div>
+
+            <div id="hotspot-door" class="hotspot" data-tooltip="Locked Door">
+            </div>
+        </div>
+
+        <!-- HUD -->
+        <div id="hud">
+            <div id="hud-left">
+                <div id="inventory">
+                    <span class="hud-label">INVENTORY</span>
+                    <div id="inventory-slots"></div>
+                </div>
+            </div>
+            <div id="hud-center">
+                <div id="progress-bar">
+                    <div class="progress-step" data-step="cad" id="prog-cad">
+                        <div class="step-icon">🔧</div>
+                        <div class="step-label">WHEEL</div>
+                    </div>
+                    <div class="progress-connector"></div>
+                    <div class="progress-step" data-step="network" id="prog-network">
+                        <div class="step-icon">🌐</div>
+                        <div class="step-label">NETWORK</div>
+                    </div>
+                    <div class="progress-connector"></div>
+                    <div class="progress-step" data-step="code" id="prog-code">
+                        <div class="step-icon">💻</div>
+                        <div class="step-label">CODE</div>
+                    </div>
+                    <div class="progress-connector"></div>
+                    <div class="progress-step" data-step="escape" id="prog-escape">
+                        <div class="step-icon">🚪</div>
+                        <div class="step-label">ESCAPE</div>
+                    </div>
+                </div>
+            </div>
+            <div id="hud-right">
+                <button id="btn-hint" class="btn-hud">💡 HINT</button>
+                <div id="timer-display">
+                    <span class="hud-label">TIME</span>
+                    <span id="timer">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialogue / message box -->
+        <div id="dialogue-box" class="hidden">
+            <p id="dialogue-text"></p>
+            <button id="dialogue-close" class="btn-small">OK</button>
+        </div>
+    </div>
+
+    <!-- ===== PUZZLE 1: CAD / 3D PRINTER ===== -->
+    <div id="puzzle-cad-screen" class="screen puzzle-screen">
+        <div class="puzzle-header">
+            <h2>3D PRINTER — WHEEL DESIGNER</h2>
+            <p class="puzzle-instructions">Drag the correct components onto the build plate in order to assemble a
+                replacement wheel.</p>
+            <button class="btn-back" id="cad-back">✕ BACK TO ROOM</button>
+        </div>
+        <div id="cad-workspace">
+            <div id="cad-palette">
+                <h3>COMPONENTS</h3>
+                <div id="cad-parts"></div>
+            </div>
+            <div id="cad-build-area">
+                <div id="cad-build-plate">
+                    <div id="cad-build-label">BUILD PLATE</div>
+                    <div id="cad-assembly"></div>
+                    <div id="cad-drop-zone">
+                        <span>Drop parts here</span>
+                    </div>
+                </div>
+                <div id="cad-controls">
+                    <button id="btn-print" class="btn-neon" disabled>🖨️ PRINT WHEEL</button>
+                    <button id="btn-cad-reset" class="btn-hud">↺ RESET</button>
+                </div>
+            </div>
+            <div id="cad-preview">
+                <h3>ASSEMBLY VIEW</h3>
+                <div id="cad-preview-display"></div>
+                <div id="cad-feedback"></div>
+            </div>
+        </div>
+        <!-- Print animation overlay -->
+        <div id="print-animation" class="hidden">
+            <div class="print-progress">
+                <div class="print-bar"></div>
+                <p class="print-text">PRINTING WHEEL...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PUZZLE 2: NETWORK ===== -->
+    <div id="puzzle-network-screen" class="screen puzzle-screen">
+        <div class="puzzle-header">
+            <h2>NETWORK CONFIGURATION</h2>
+            <p class="puzzle-instructions">Fix the network connection between the PC and the robot. Connect the cable
+                and configure matching IP addresses.</p>
+            <button class="btn-back" id="network-back">✕ BACK TO ROOM</button>
+        </div>
+        <div id="network-workspace">
+            <div id="network-diagram">
+                <canvas id="network-canvas"></canvas>
+                <div id="network-nodes"></div>
+            </div>
+            <div id="network-config-panels">
+                <div class="config-panel" id="config-pc">
+                    <h3>🖥️ DESKTOP PC</h3>
+                    <div class="config-fields">
+                        <label>IP Address</label>
+                        <div class="ip-input-group">
+                            <input type="text" class="ip-octet" value="192" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="168" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="1" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="10" readonly>
+                        </div>
+                        <label>Subnet Mask</label>
+                        <div class="ip-input-group">
+                            <input type="text" class="ip-octet" value="255" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="255" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="255" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="0" readonly>
+                        </div>
+                        <label>Gateway</label>
+                        <div class="ip-input-group">
+                            <input type="text" class="ip-octet" value="192" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="168" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="1" readonly>
+                            <span>.</span>
+                            <input type="text" class="ip-octet" value="1" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="config-panel" id="config-robot">
+                    <h3>🤖 ROBOT</h3>
+                    <div class="config-fields">
+                        <label>IP Address</label>
+                        <div class="ip-input-group">
+                            <input type="text" class="ip-octet robot-editable" id="robot-ip-1" value="10" maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-ip-2" value="0" maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-ip-3" value="0" maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-ip-4" value="5" maxlength="3">
+                        </div>
+                        <label>Subnet Mask</label>
+                        <div class="ip-input-group">
+                            <input type="text" class="ip-octet robot-editable" id="robot-mask-1" value="255"
+                                maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-mask-2" value="0"
+                                maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-mask-3" value="0"
+                                maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-mask-4" value="0"
+                                maxlength="3">
+                        </div>
+                        <label>Gateway</label>
+                        <div class="ip-input-group">
+                            <input type="text" class="ip-octet robot-editable" id="robot-gw-1" value="10" maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-gw-2" value="0" maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-gw-3" value="0" maxlength="3">
+                            <span>.</span>
+                            <input type="text" class="ip-octet robot-editable" id="robot-gw-4" value="1" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="network-controls">
+                <button id="btn-test-connection" class="btn-neon">📡 TEST CONNECTION</button>
+                <div id="network-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PUZZLE 3: CODE ===== -->
+    <div id="puzzle-code-screen" class="screen puzzle-screen">
+        <div class="puzzle-header">
+            <h2>ROBOT PROGRAMMING</h2>
+            <p class="puzzle-instructions">The robot moves in a loop! Rearrange the code blocks to guide it to the door.
+            </p>
+            <button class="btn-back" id="code-back">✕ BACK TO ROOM</button>
+        </div>
+        <div id="code-workspace">
+            <div id="code-blocks-available">
+                <h3>AVAILABLE BLOCKS</h3>
+                <div id="code-palette"></div>
+            </div>
+            <div id="code-editor">
+                <h3>PROGRAM SEQUENCE</h3>
+                <div id="code-sequence">
+                    <div id="code-drop-zone">
+                        <span>Drop code blocks here in order</span>
+                    </div>
+                </div>
+                <div id="code-controls">
+                    <button id="btn-run-code" class="btn-neon">▶ RUN PROGRAM</button>
+                    <button id="btn-code-reset" class="btn-hud">↺ RESET</button>
+                </div>
+            </div>
+            <div id="code-preview">
+                <h3>ROBOT PREVIEW</h3>
+                <canvas id="robot-preview-canvas"></canvas>
+                <div id="code-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ESCAPE / WIN SCREEN ===== -->
+    <div id="escape-screen" class="screen">
+        <div class="escape-content">
+            <h1 class="glitch" data-text="ESCAPED!">ESCAPED!</h1>
+            <p class="escape-subtitle">You fixed the robot and escaped the AI lab!</p>
+            <div id="escape-stats">
+                <div class="stat">
+                    <span class="stat-label">TIME</span>
+                    <span id="final-time" class="stat-value">00:00</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">HINTS USED</span>
+                    <span id="final-hints" class="stat-value">0</span>
+                </div>
+            </div>
+            <button id="btn-play-again" class="btn-neon">PLAY AGAIN</button>
+        </div>
+        <div class="scanlines"></div>
+    </div>
+
+    <!-- ===== HINT MODAL ===== -->
+    <div id="hint-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>💡 HINT</h3>
+            <p id="hint-text"></p>
+            <button id="hint-close" class="btn-small">GOT IT</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="puzzle-cad.js"></script>
+    <script src="puzzle-network.js"></script>
+    <script src="puzzle-code.js"></script>
+</body>
+
+</html>
