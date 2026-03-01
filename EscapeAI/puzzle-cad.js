@@ -6,10 +6,10 @@ const PuzzleCAD = (() => {
         { id: 'spokes', name: 'Spokes', icon: '✳️', correct: true, order: 2, desc: 'Structural spokes' },
         { id: 'rim', name: 'Rim', icon: '⭕', correct: true, order: 3, desc: 'Outer rim ring' },
         { id: 'tire', name: 'Tire', icon: '⬛', correct: true, order: 4, desc: 'Rubber tire surface' },
-        { id: 'gear', name: 'Gear', icon: '🔩', correct: false, desc: 'Mechanical gear (wrong part)' },
-        { id: 'spring', name: 'Spring', icon: '🌀', correct: false, desc: 'Coil spring (wrong part)' },
-        { id: 'cube', name: 'Cube', icon: '🧊', correct: false, desc: 'Metal cube (wrong part)' },
-        { id: 'bolt', name: 'Bolt', icon: '🔧', correct: false, desc: 'Hex bolt (wrong part)' },
+        { id: 'gear', name: 'Gear', icon: '🔩', correct: false, desc: 'Mechanical gear' },
+        { id: 'spring', name: 'Spring', icon: '🌀', correct: false, desc: 'Coil spring' },
+        { id: 'cube', name: 'Cube', icon: '🧊', correct: false, desc: 'Metal cube' },
+        { id: 'bolt', name: 'Bolt', icon: '🔧', correct: false, desc: 'Hex bolt' },
     ];
 
     const correctOrder = PARTS.filter(p => p.correct).sort((a, b) => a.order - b.order);

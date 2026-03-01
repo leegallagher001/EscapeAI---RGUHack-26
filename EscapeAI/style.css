@@ -335,8 +335,8 @@ body {
 }
 
 #hotspot-robot {
-    left: 1%;
-    bottom: 8%;
+    left: 8%;
+    bottom: 4%;
     width: 35%;
     z-index: 5;
 }
@@ -347,8 +347,8 @@ body {
 }
 
 #hotspot-desk {
-    right: 3%;
-    bottom: 6%;
+    right: 12.5%;
+    bottom: 4%;
     width: 35%;
     z-index: 5;
 }
@@ -360,7 +360,7 @@ body {
 
 #hotspot-door {
     left: 42%;
-    top: 24%;
+    top: 40%;
     width: 14%;
     height: 42%;
     z-index: 3;
@@ -376,7 +376,7 @@ body {
 }
 
 #hotspot-printer {
-    left: 10%;
+    right: 55%;
     top: 2%;
     width: 20%;
     height: 62%;
@@ -384,7 +384,7 @@ body {
 }
 
 #hotspot-pc {
-    right: 3%;
+    right: 12%;
     top: 5%;
     width: 40%;
     height: 55%;

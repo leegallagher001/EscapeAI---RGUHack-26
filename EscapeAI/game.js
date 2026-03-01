@@ -200,8 +200,8 @@ const Game = (() => {
         const robot = document.getElementById('hotspot-robot');
         if (robot) {
             robot.classList.add('robot-moving');
-            robot.style.left = '40%';
-            robot.style.bottom = '20%';
+            robot.style.left = '30%';
+            robot.style.bottom = '15%';
         }
 
         setTimeout(() => {
