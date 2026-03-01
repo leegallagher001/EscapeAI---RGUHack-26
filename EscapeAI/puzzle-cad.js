@@ -140,7 +140,7 @@ const PuzzleCAD = (() => {
         });
         if (placedParts.length < correctOrder.length) {
             html += `<div style="color:var(--text-dim); font-size:0.7rem; margin-top:8px; font-family:var(--font-mono);">
-                Next: ${correctOrder[placedParts.length].name}?
+                What Next?
             </div>`;
         } else {
             html += `<div style="margin-top:12px; font-size:2.5rem;">🛞</div>

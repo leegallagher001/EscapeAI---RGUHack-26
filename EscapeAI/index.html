@@ -100,7 +100,7 @@
     <!-- ===== PUZZLE 1: CAD / 3D PRINTER ===== -->
     <div id="puzzle-cad-screen" class="screen puzzle-screen">
         <div class="puzzle-header">
-            <h2>3D PRINTER — WHEEL DESIGNER</h2>
+            <h2>3D PRINTER</h2>
             <p class="puzzle-instructions">Drag the correct components onto the build plate in order to assemble a
                 replacement wheel.</p>
             <button class="btn-back" id="cad-back">✕ BACK TO ROOM</button>
@@ -122,6 +122,9 @@
                     <button id="btn-print" class="btn-neon" disabled>🖨️ PRINT WHEEL</button>
                     <button id="btn-cad-reset" class="btn-hud">↺ RESET</button>
                 </div>
+                <div id="cad-hint">
+                    <p>Hint: The wheel assembly consists of a hub, a tire, and two other items in between! Not all of the items are part of the wheel assembly, so have a think about which items may be a part of it and which items can be ruled out.</p>
+                </div>
             </div>
             <div id="cad-preview">
                 <h3>ASSEMBLY VIEW</h3>
@@ -141,7 +144,7 @@
     <!-- ===== PUZZLE 2: NETWORK ===== -->
     <div id="puzzle-network-screen" class="screen puzzle-screen">
         <div class="puzzle-header">
-            <h2>NETWORK CONFIGURATION</h2>
+            <h2>NETWORK REPAIR</h2>
             <p class="puzzle-instructions">Fix the network connection between the PC and the robot. Connect the cable
                 and configure matching IP addresses.</p>
             <button class="btn-back" id="network-back">✕ BACK TO ROOM</button>
@@ -153,7 +156,7 @@
             </div>
             <div id="network-config-panels">
                 <div class="config-panel" id="config-pc">
-                    <h3>🖥️ DESKTOP PC</h3>
+                    <h3>ROBOT</h3>
                     <div class="config-fields">
                         <label>IP Address</label>
                         <div class="ip-input-group">
@@ -188,7 +191,7 @@
                     </div>
                 </div>
                 <div class="config-panel" id="config-robot">
-                    <h3>🤖 ROBOT</h3>
+                    <h3>DESKTOP PC</h3>
                     <div class="config-fields">
                         <label>IP Address</label>
                         <div class="ip-input-group">
@@ -231,13 +234,16 @@
                 <button id="btn-test-connection" class="btn-neon">📡 TEST CONNECTION</button>
                 <div id="network-feedback"></div>
             </div>
+            <div id="network-hint">
+                <p>Hint: The PC and robot's network settings must match in order to communicate. The example above is a "Class C" IP configuration, with a subnet mask of 255.255.255.0 (i.e. both subnet masks should be the same!)</p>
+            </div>
         </div>
     </div>
 
     <!-- ===== PUZZLE 3: CODE ===== -->
     <div id="puzzle-code-screen" class="screen puzzle-screen">
         <div class="puzzle-header">
-            <h2>ROBOT PROGRAMMING</h2>
+            <h2>CODING CHALLENGE</h2>
             <p class="puzzle-instructions">The robot moves in a loop! Rearrange the code blocks to guide it to the door.
             </p>
             <button class="btn-back" id="code-back">✕ BACK TO ROOM</button>

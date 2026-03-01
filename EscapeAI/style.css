@@ -637,6 +637,13 @@ body {
 }
 
 /* ========== PUZZLE 1: CAD ========== */
+
+#cad-hint {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
 #cad-workspace {
     flex: 1;
     display: flex;
@@ -726,7 +733,6 @@ body {
     height: 340px;
     background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
     border: 2px dashed var(--text-dim);
-    border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -910,6 +916,9 @@ body {
 }
 
 /* ========== PUZZLE 2: NETWORK ========== */
+
+
+
 #network-workspace {
     flex: 1;
     display: flex;

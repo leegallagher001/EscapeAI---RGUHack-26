@@ -14,8 +14,8 @@ const Game = (() => {
     };
 
     const hints = {
-        room: "Look around the room. The robot on the left is missing a wheel, and there's a 3D printer on the desk to the right.",
-        cad: "Assemble the wheel components in order: first the Hub, then the Spokes, then the Rim, and finally the Tire. Ignore the distractor parts!",
+        room: "Look around the room. The robot on the left is missing a wheel. Perhaps an item on the desk may come in handy...",
+        cad: "Assemble the wheel components in order: the Hub, the Tire, and a couple of items in between. Ignore the distractor parts!",
         network: "The PC is on subnet 192.168.1.x with mask 255.255.255.0. Set the robot to the same subnet — try 192.168.1.20.",
         code: "The robot needs to: move forward to reach the path, turn right, move forward toward the door, then open the door. Remove the loop block!",
     };
